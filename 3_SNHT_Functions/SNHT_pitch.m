@@ -1,4 +1,4 @@
-function [theta_ML, theta_var] = SNHT_Pitch_Only(xyz, plot_flag)
+function [theta_ML, theta_var] = SNHT_pitch(xyz, plot_flag)
 % 
 % SNHT_wall runs the Surface Normal Hough Transform (SNHT) algorithm on a
 % given <x,y,z> point cloud for a provided search space.  
@@ -22,8 +22,8 @@ function [theta_ML, theta_var] = SNHT_Pitch_Only(xyz, plot_flag)
 K = length(xyz);
 
 % theta bins
-d_theta = 0.25 * pi/180;
-theta = (-20 : d_theta : 20) * pi/180;
+d_theta = 0.025 * pi/180;
+theta = (-20 * pi/180) : d_theta : (20 * pi/180);
 M = length(theta); 
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

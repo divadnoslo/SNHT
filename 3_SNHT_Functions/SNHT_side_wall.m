@@ -1,4 +1,4 @@
-function [psi_ML, psi_var] = SNHT_front_wall(xyz, plot_flag)
+function [psi_ML, psi_var] = SNHT_side_wall(xyz, plot_flag)
 % 
 % SNHT_wall runs the Surface Normal Hough Transform (SNHT) algorithm on a
 % given <x,y,z> point cloud for a provided search space.  
@@ -34,11 +34,11 @@ X = repmat(xyz(1,:), M, 1);
 Y = repmat(xyz(2,:), M, 1);
 
 % Build cos(psi) & sin(psi) vector
-cPsi = repmat(cos(psi)', 1, K);
+neg_cPsi = repmat(-cos(psi)', 1, K);
 sPsi = repmat(sin(psi)', 1, K);
 
 % Transform each XYZ point to the Hough Space
-Rho = (cPsi .* X) + (sPsi .* Y);
+Rho = (neg_cPsi .* X) + (sPsi .* Y);
 Rho = round(Rho, 1);
 
 %- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -99,7 +99,7 @@ K = length(xyz);
 
 % psi bins
 psi_fine_search = 15 * pi/180;
-d_psi = 0.025 * pi/180;
+d_psi = 0.1 * pi/180;
 rho_fine_search = 0.2;
 psi = ((psi_c - psi_fine_search) : d_psi : (psi_c + psi_fine_search));
 M = length(psi); 
